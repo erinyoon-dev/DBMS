@@ -162,13 +162,12 @@ void init_tableList(int table_id) {
 int close_buf_table(int table_id) {
     if (buf_capacity == 0){
         printf("There is no buf. Only close file\n");
-        if(tableList[table_id].isOpened)
-            close(tableList[table_id].fd);
-
-        tableList[table_id].isOpened = false;
         return -1;
     }
-
+	
+	if (tableList[table_id].isOpened)
+		close(tableList[table_id].fd);
+	tableList[table_id].isOpened = false;
     printf("close buf table %d\n", table_id);
     int i;
     for (i = 0; i < buf_capacity; i++) {
