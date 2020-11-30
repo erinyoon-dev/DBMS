@@ -1,10 +1,10 @@
 #include "trx_manager.h"
 #include "index_layer.h"
 
-static map<int, list<undo_log*> > rollback;
-static pthread_mutex_t trx_manager_latch = PTHREAD_MUTEX_INITIALIZER;
+map<int, list<undo_log*> > rollback;
+pthread_mutex_t trx_manager_latch = PTHREAD_MUTEX_INITIALIZER;
 
-static int transaction_id = 1;
+int transaction_id = 1;
 
 trx_t* make_trx() {
 

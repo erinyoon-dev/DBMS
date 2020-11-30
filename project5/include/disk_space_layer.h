@@ -1,7 +1,3 @@
-//
-// Created by 윤세령 on 2020/11/04.
-//
-
 #ifndef PROJ3_DISK_SPACE_LAYER_H
 #define PROJ3_DISK_SPACE_LAYER_H
 
@@ -17,8 +13,8 @@
 #include <stdbool.h>
 #include <limits.h>
 
-#define LEAF_ORDER 3 // 31
-#define INTERNAL_ORDER 3 // 248
+#define LEAF_ORDER 31
+#define INTERNAL_ORDER 248
 #define MAX_TABLE 11
 #define false 0
 #define true 1

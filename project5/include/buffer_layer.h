@@ -5,6 +5,8 @@
 #include <string>
 #include <queue>
 #include <iostream>
+#include <pthread.h>
+#include <stdlib.h>
 
 typedef struct frameM{
     page_t frame;
@@ -17,23 +19,12 @@ typedef struct frameM{
     int next;
     int prev;
 }frameM;
-static pthread_mutex_t buffer_latch;
 
 typedef struct table_list {
     int fd;
     int tid;
     bool isOpened;
 }table_list;
-//
-//static map<pagenum_t, int> hashTable[MAX_TABLE];       // save table information and buffer index
-//static table_list tableList[MAX_TABLE];
-//static map<string, int> file_name_map;
-//static frameM* q;
-//
-//static int head = 0;
-////static frameM *head, *current;
-//static int buf_capacity = 0;
-//static int num_frames = 0;
 
 // print
 void printPoolContent(void);

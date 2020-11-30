@@ -1,41 +1,43 @@
 #include "../include/buffer_layer.h"
 
-static map<pagenum_t, int> hashTable[MAX_TABLE];       // save table information and buffer index
-static table_list tableList[MAX_TABLE];
-static map<string, int> file_name_map;
-static frameM* q;
+map<pagenum_t, int> hashTable[MAX_TABLE];       // save table information and buffer index
+table_list tableList[MAX_TABLE];
+map<string, int> file_name_map;
+frameM* q;
 
-static int head = 0;
+int head = 0;
 //static frameM *head, *current;
-static int buf_capacity = 0;
-static int num_frames = 0;
+int buf_capacity = 0;
+int num_frames = 0;
+
+pthread_mutex_t buffer_latch;
 
 //PRINT
-void printPoolContent () {
-    int i;
+// void printPoolContent () {
+//     int i;
 
-    for (i = 0; i < buf_capacity; i++) {
-        printf("{ table %d:: index %d[%lu %s] }", q[i].tid, i, q[i].pagenum, (q[i].isDirty == true ? "O" : "X"));
-        printf("\n");
-    }
-}
+//     for (i = 0; i < buf_capacity; i++) {
+//         printf("{ table %d:: index %d[%lu %s] }", q[i].tid, i, q[i].pagenum, (q[i].isDirty == true ? "O" : "X"));
+//         printf("\n");
+//     }
+// }
 
-void printTable() {
+// void printTable() {
 
-    int i;
-    map<string, int>::iterator it;
-    for(i = 1; i <= 10; i++){
-        string file_name;
-        for(it = file_name_map.begin(); it != file_name_map.end(); it++){
-            if (it->second == i){
-                file_name = it->first;
-            }
-        }
-        cout << "file_name " << file_name;
-        printf("\ttable_id %d, fd %d, isopen %d\n", tableList[i].tid, tableList[i].fd, tableList[i].isOpened);
-    }
+//     int i;
+//     map<string, int>::iterator it;
+//     for(i = 1; i <= 10; i++){
+//         string file_name;
+//         for(it = file_name_map.begin(); it != file_name_map.end(); it++){
+//             if (it->second == i){
+//                 file_name = it->first;
+//             }
+//         }
+//         cout << "file_name " << file_name;
+//         printf("\ttable_id %d, fd %d, isopen %d\n", tableList[i].tid, tableList[i].fd, tableList[i].isOpened);
+//     }
 
-}
+// }
 
 // layered architecture
 int init_buf(int num_buf) {
@@ -51,7 +53,6 @@ int init_buf(int num_buf) {
 
     q = (frameM *)calloc(num_buf, sizeof(frameM));
     pthread_mutex_init(&buffer_latch, NULL);
-//    buffer_latch = PTHREAD_MUTEX_INITIALIZER;
     if (q == NULL) return -1;
 
     buf_capacity = num_buf;
@@ -65,7 +66,6 @@ int init_buf(int num_buf) {
         q[i].pagenum = -1;
         q[i].isDirty = false;
         pthread_mutex_init(&q[i].page_latch, NULL);
-//        q[i].page_latch = PTHREAD_MUTEX_INITIALIZER;
 //        q[i].pinCount = 0;
         q[i].buf_index = i;
         q[i].prev = -1;

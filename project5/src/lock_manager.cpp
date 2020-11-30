@@ -4,9 +4,8 @@
 #include "lock_manager.h"
 #include "trx_manager.h"
 
-static map<pair<int, int64_t>, hash_entry> hash_table;
-
-static pthread_mutex_t lock_table_latch;
+map<pair<int, int64_t>, hash_entry> hash_table;
+pthread_mutex_t lock_table_latch;
 map<int, trx*> trx_manager;
 
 lock_t* make_lock() {
