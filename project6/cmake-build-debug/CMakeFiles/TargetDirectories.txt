@@ -1,0 +1,3 @@
+/Users/SR/Desktop/4-1/DB/assignment/project6/pro_6/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/SR/Desktop/4-1/DB/assignment/project6/pro_6/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/SR/Desktop/4-1/DB/assignment/project6/pro_6/cmake-build-debug/CMakeFiles/pro_6.dir
